@@ -9,4 +9,5 @@ blogapp/migrations/*
 blogapp/*.swp
 *.swp
 demo_data.json
-~               
+*.html~
+*.py~

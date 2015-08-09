@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% load tag_cloud %}
+<h3>Blog Tag Search Results</h3>
+<p>You searched the blog entries for the tag <span class='tag'>{{ tag }}</span> :</p>
+{% if entries %}
+	{% for entry in entries %}
+		<p>{{forloop.counter}}. <a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a> {{ entry.created_at }}</p>
+	{% endfor %}
+{% else %}
+<p>No entries have this tag.</p>
+{% endif %}
+
+
+{% endblock %}

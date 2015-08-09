@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load blogapp_tags %}
+{% block title %}Home &dash; {% endblock %}
+<!-- begin page body goes here  -->
+{% block content %}
+
+
+	{% for entry in entry_list %}
+		
+		<article>
+		<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
+		<p class="subheader">
+			<time>{{ entry.modified_at|date }}</time>
+			<!-- begin tagged  -->
+			<span>Tags: 
+			{% with entry.tags|split as tags %}
+			
+			{% for tag in tags %}			
+			<span><a  href="/tag/{{ tag|trim }}/">{{ tag }}</a></span>
+				{% ifequal tag "" %}
+				<span>no tags</span>				
+				{% endifequal %}
+			{% empty %}
+			<span>no tags</span>			
+			{% endfor %}
+			{% endwith %}
+			</span>
+			<!-- end tagged -->
+		</p>
+
+		<p></p>
+		{{ entry.get_short_text|linebreaks }}
+
+		
+<!-- begin comments  -->
+	<section class="row">
+		<div class="large-4 columns">
+
+			<a href="{{ entry.get_absolute_url }}">
+				<span class="mega-octicon octicon-ellipsis"></span>Read More
+			</a>
+		</div>
+		<div class="large-4 columns">
+			<a href="{{ entry.get_absolute_url }}#comments">
+				<span class="mega-octicon octicon-ellipsis"></span>{{ entry.comment_set.all.count }} comment(s)
+			</a>
+						
+
+		</div>
+	</section>
+<!-- end comments -->			
+		
+		<p></p>
+		</article>
+		
+
+	{% empty %}
+	<p>No blog entries yet.</p>
+	{% endfor %}
+
+{% endblock content %}
+<!-- end page body goes here -->
+
+

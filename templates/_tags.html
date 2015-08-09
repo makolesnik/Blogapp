@@ -1,0 +1,7 @@
+{% block tags %}
+{% load tag_cloud %}
+		    {% tag_cloud_for_model blogapp.Entry as tags with steps=6 min_count=1 distribution=log %}
+		    {% for tag in tags %}
+		    	<a class="button tiny" href="/tag/{{ tag.name|slugify}}/">{{ tag.name }} ({{ tag.count }})</a>
+			{% endfor %}
+{% endblock %}

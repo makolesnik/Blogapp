@@ -1,0 +1,29 @@
+		{% load blogapp_tags %}
+		<article>
+		<h2><a href="{{ entry.get_absolute_url }}">{{ entry.title }}</a></h2>
+		<p class="subheader">
+			<time>{{ entry.modified_at|date }}</time>
+		</p>
+		<p></p>
+			
+		{% block body %}	
+		{{ entry.body|linebreaks }}
+		{% endblock %}
+
+			<!-- begin tagged  -->
+			<span>Tags: 
+			{% with entry.tags|split as tags %}
+			
+			{% for tag in tags %}			
+			<span><a  href="/tag/{{ tag|trim }}/">{{ tag }}</a></span>
+				{% ifequal tag "" %}
+				<span>no tags</span>				
+				{% endifequal %}
+			{% empty %}
+			<span>no tags</span>			
+			{% endfor %}
+			{% endwith %}
+			</span>
+			<!-- end tagged -->
+	
+	</article>
